@@ -1,0 +1,14 @@
+//#include <cstdint>
+#pragma once
+#include "stm32f4xx.h"
+
+namespace cmsis {
+//functions
+void setBitN(GPIO_TypeDef* gpiox, const uint8_t bitN);
+void resetBitN(GPIO_TypeDef* gpiox, const uint8_t bitN);
+void toggleBitN(GPIO_TypeDef* gpiox, const uint8_t bitN);/*toogle the bit N in GPIO X a*/
+bool gpioBitState(GPIO_TypeDef* gpiox, uint8_t bitN);
+
+void init_clock_100(); /*initialize System clock to work at 100 MHz*/
+void init_SysTick(uint32_t ticks); /* initialize SysTick to work at 1ms */
+}  // namespace cmsis
