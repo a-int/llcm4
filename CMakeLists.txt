@@ -68,8 +68,10 @@ add_subdirectory("src/")
 # add the executable
 # all code comes from libraries -> need to have a dummy empty file
 
-set(BUILD_TESTS OFF)
+if (NOT DEFINED BUILD_NUMBER)
+  set(BUILD_TEST OFF)
+endif()
 
 if(BUILD_TESTS)
-    add_subdirectory(tests)
+    add_subdirectory("test/")
 endif()
