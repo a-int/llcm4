@@ -7,12 +7,13 @@ void init_GPIO(); // initialize GPIO ports
 void delay_ms(uint32_t time_ms);
 
 int main(){  
+  cmsis::setupSW(); // setup pins for debug work
   cmsis::init_clock_100(); // initialize clock speed as 100 MHz
   cmsis::init_SysTick(1000); // initialize SysTic to work at ms
   init_GPIO();
   while(1){
-      if(!cmsis::gpioBitState(GPIOA, 0)){
-      while(!cmsis::gpioBitState(GPIOA, 0));
+    if(!cmsis::stateBitN(GPIOA, 0)){
+      while(!cmsis::stateBitN(GPIOA, 0));
       cmsis::toggleBitN(GPIOC, 13);
       delay_ms(100);
     }
@@ -26,7 +27,7 @@ void init_GPIO(){
   CLEAR_BIT(GPIOC->OTYPER, GPIO_OTYPER_OT13_Msk); //select push-pull mode
   CLEAR_BIT(GPIOC->PUPDR, GPIO_PUPDR_PUPD13_Msk); //select no push no pull mode
   
-  //set up for GPIOA0 (BUTTON)
+  // set up for GPIOA0 (BUTTON)
   SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOAEN); //enable GPIOA
   CLEAR_BIT(GPIOA->MODER, GPIO_MODER_MODE0_Msk); // set as input
   CLEAR_BIT(GPIOA->OTYPER, GPIO_OTYPER_OT0); //select push-pull mode

@@ -13,7 +13,7 @@ void cmsis::toggleBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
   gpiox->ODR ^= 1 << bitN;
 }
 
-bool cmsis::gpioBitState(GPIO_TypeDef* gpiox, const uint8_t bitN) {
+bool cmsis::stateBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
   return gpiox->IDR & (1 << bitN);
 }
 
