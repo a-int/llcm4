@@ -44,6 +44,7 @@ set(compile_flags
     $<$<COMPILE_LANGUAGE:CXX>:-std=c++17>
     $<$<COMPILE_LANGUAGE:CXX>:-fno-rtti>
     $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>
+    -g3
 )
 
 # Linker Options
