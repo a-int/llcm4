@@ -1,5 +1,6 @@
 #include <stm32f411xe.h>
 #include <llcm.hpp>
+#include "stm32f4xx.h"
 
 void cmsis::setBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
   gpiox->ODR |= (1 << bitN);
@@ -59,3 +60,16 @@ void cmsis::init_SysTick(uint32_t ticks) {
   SET_BIT(SysTick->CTRL, (SysTick_CTRL_CLKSOURCE_Msk |
                           SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk));
 }
+
+//Serial Wire setup. NOTE unused pins set as analog
+void cmsis::setupSW(){
+  /* Set PA15(JTDI), PB3(JTDO), PB4(NJRST) as analog to minimize power consuption unless it used*/
+  CLEAR_BIT(GPIOA->MODER, GPIO_MODER_MODE15);
+  SET_BIT(GPIOA->MODER, GPIO_MODER_MODE15);
+
+  CLEAR_BIT(GPIOB->MODER, GPIO_MODER_MODE3);
+  SET_BIT(GPIOB->MODER, GPIO_MODER_MODE3);
+
+  CLEAR_BIT(GPIOB->MODER, GPIO_MODER_MODE4);
+  SET_BIT(GPIOB->MODER, GPIO_MODER_MODE4);
+} 
