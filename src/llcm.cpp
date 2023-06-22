@@ -72,4 +72,6 @@ void cmsis::setupSW(){
 
   CLEAR_BIT(GPIOB->MODER, GPIO_MODER_MODE4);
   SET_BIT(GPIOB->MODER, GPIO_MODER_MODE4);
+
+  
 } 
