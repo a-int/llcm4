@@ -29,3 +29,18 @@ target_link_options(exti.elf PRIVATE
 target_link_libraries(exti.elf
 	llcm
 )
+
+add_executable(usart.elf 
+	usart.cpp
+)
+target_include_directories(usart.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/vendor/)
+target_include_directories(usart.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/llcm/)
+target_link_options(usart.elf PRIVATE 
+    ${arch_flags} 
+    ${common_flags}
+    ${link_flags}
+)
+
+target_link_libraries(usart.elf
+	llcm
+)
