@@ -1,28 +1,27 @@
+#include <llcm.h>
 #include <stm32f411xe.h>
-#include <llcm.hpp>
 #include "stm32f4xx.h"
 
-void cmsis::setBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
+void setBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
   gpiox->ODR |= (1 << bitN);
 }
 
-void cmsis::resetBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
-  gpiox->ODR &= ~(1 << bitN);  // BR = [16;31]
-}
+// void resetBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
+// gpiox->ODR &= ~(1 << bitN);  // BR = [16;31]
+// }
 
-void cmsis::toggleBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
+void toggleBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
   gpiox->ODR ^= 1 << bitN;
 }
 
-bool cmsis::stateBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
+bool stateBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
   return gpiox->IDR & (1 << bitN);
 }
 
 /*initialize System clock to work at 100 MHz*/
-void cmsis::init_clock_100() {
+void init_clock_100() {
   SET_BIT(RCC->APB1ENR, RCC_APB1ENR_PWREN);
-  SET_BIT(FLASH->ACR,
-          (FLASH_ACR_LATENCY_3WS | FLASH_ACR_DCEN | FLASH_ACR_ICEN));
+  SET_BIT(FLASH->ACR, (FLASH_ACR_LATENCY_3WS | FLASH_ACR_DCEN | FLASH_ACR_ICEN));
 
   SET_BIT(RCC->CR, RCC_CR_HSEON);  // turn on HSE
   while (READ_BIT(RCC->CR, RCC_CR_HSERDY) == RESET)
@@ -52,17 +51,14 @@ void cmsis::init_clock_100() {
 }
 
 /* initialize SysTick*/
-void cmsis::init_SysTick(uint32_t ticks) {
-  MODIFY_REG(SysTick->LOAD, SysTick_LOAD_RELOAD_Msk,
-             (SystemCoreClock / ticks - 1));
-  MODIFY_REG(SysTick->VAL, SysTick_VAL_CURRENT_Msk,
-             (SystemCoreClock / ticks - 1));
-  SET_BIT(SysTick->CTRL, (SysTick_CTRL_CLKSOURCE_Msk |
-                          SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk));
+void init_SysTick(uint32_t ticks) {
+  MODIFY_REG(SysTick->LOAD, SysTick_LOAD_RELOAD_Msk, (SystemCoreClock / ticks - 1));
+  MODIFY_REG(SysTick->VAL, SysTick_VAL_CURRENT_Msk, (SystemCoreClock / ticks - 1));
+  SET_BIT(SysTick->CTRL, (SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk));
 }
 
 //Serial Wire setup. NOTE unused pins set as analog
-void cmsis::setupSW(){
+void setupSW() {
   /* Set PA15(JTDI), PB3(JTDO), PB4(NJRST) as analog to minimize power consuption unless it used*/
   CLEAR_BIT(GPIOA->MODER, GPIO_MODER_MODE15);
   SET_BIT(GPIOA->MODER, GPIO_MODER_MODE15);
@@ -72,6 +68,4 @@ void cmsis::setupSW(){
 
   CLEAR_BIT(GPIOB->MODER, GPIO_MODER_MODE4);
   SET_BIT(GPIOB->MODER, GPIO_MODER_MODE4);
-
-  
-} 
+}

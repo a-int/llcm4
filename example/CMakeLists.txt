@@ -1,7 +1,7 @@
 project(${CMAKE_PROJECT_NAME})
 
 add_executable(test.elf 
-	test.cpp
+	test.c
 )
 target_include_directories(test.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/vendor/)
 target_include_directories(test.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/llcm/)
@@ -16,7 +16,7 @@ target_link_libraries(test.elf
 )
 
 add_executable(exti.elf 
-	exti.cpp
+	exti.c
 )
 target_include_directories(exti.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/vendor/)
 target_include_directories(exti.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/llcm/)
@@ -31,7 +31,7 @@ target_link_libraries(exti.elf
 )
 
 add_executable(usart.elf 
-	usart.cpp
+	usart.c
 )
 target_include_directories(usart.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/vendor/)
 target_include_directories(usart.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/llcm/)

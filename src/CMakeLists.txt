@@ -8,7 +8,7 @@ set(SOURCES
 
 add_library( llcm OBJECT 
 	${SOURCES}
-	llcm.cpp
+	llcm.c
 )
 
 target_include_directories(llcm PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/vendor/)

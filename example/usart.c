@@ -1,5 +1,4 @@
-#include <cstdint>
-#include <llcm.hpp>
+#include <llcm.h>
 #include "stm32f411xe.h"
 #include "stm32f4xx.h"
 
@@ -10,12 +9,11 @@ void delay_ms(uint32_t time);
 volatile uint32_t delay_ms_time = 0;
 
 int main() {
-  cmsis::setupSW();           // setup pins for Serial Wire debug
-  cmsis::init_clock_100();    // initialize MPU to work at 100 MHz
-  cmsis::init_SysTick(1000);  // initialize SysTick to work at ms
+  setupSW();           // setup pins for Serial Wire debug
+  init_clock_100();    // initialize MPU to work at 100 MHz
+  init_SysTick(1000);  // initialize SysTick to work at ms
   usart2_init();
-  while (1) {
-  }
+  while (1) {}
 }
 
 void usart2_init() {
@@ -42,7 +40,7 @@ void usart2_init() {
   MODIFY_REG(USART2->BRR, USART_BRR_DIV_Fraction, (2 << USART_BRR_DIV_Fraction_Pos));
   MODIFY_REG(USART2->BRR, USART_BRR_DIV_Mantissa, (27 << USART_BRR_DIV_Mantissa_Pos));
 
-  SET_BIT(USART2->CR1, USART_CR1_RXNEIE);  //enable IRQ for ready to read
+  SET_BIT(USART2->CR1, USART_CR1_RXNEIE);   //enable IRQ for ready to read
   CLEAR_BIT(USART2->CR1, USART_CR1_TXEIE);  //disable IRQ for completing the  transimition
 
   SET_BIT(USART2->CR1, USART_CR1_TE);  // enable transmitter
@@ -71,24 +69,20 @@ void delay_ms(uint32_t time) {
     ;
 }
 
-extern "C" {
-
 void SysTick_Handler(void) {
   if (delay_ms_time > 0) {
     --delay_ms_time;
   }
 }
 
-void USART2_IRQHandler(void){
-    if(READ_BIT(USART2->SR, USART_SR_RXNE)){//if data may be read
-      if('F' == USART2->DR){
-        const char* msg = "Hello world!\n";
-        usart_send((char*)msg, 13);
-      }
-    }
-    if(READ_BIT(USART2->SR, USART_SR_IDLE)){
-      USART2->DR; // reset IDLE flag
+void USART2_IRQHandler(void) {
+  if (READ_BIT(USART2->SR, USART_SR_RXNE)) {  //if data may be read
+    if ('F' == USART2->DR) {
+      const char* msg = "Hello world!\n";
+      usart_send((char*)msg, 13);
     }
   }
-  
-}//end of "C"
+  if (READ_BIT(USART2->SR, USART_SR_IDLE)) {
+    USART2->DR;  // reset IDLE flag
+  }
+}
