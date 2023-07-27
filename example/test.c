@@ -12,10 +12,10 @@ int main() {
   init_SysTick(1000);  // initialize SysTic to work at ms
   init_GPIO();
   while (1) {
-    if (!stateBitN(GPIOA, 0)) {
-      while (!stateBitN(GPIOA, 0))
+    if (!READ_BIT(GPIOA->IDR, 1<<0)) {
+      while (!READ_BIT(GPIOA->IDR, 1<<0))
         ;
-      toggleBitN(GPIOC, 13);
+      GPIOC->ODR ^= 1<<13;
       delay_ms(100);
     }
   }

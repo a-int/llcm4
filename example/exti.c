@@ -47,7 +47,7 @@ void SysTick_Handler(void) {
 }
 
 void EXTI0_IRQHandler(void) {
-  toggleBitN(GPIOC, 13);           // switch the state of led
+  GPIOC->ODR ^= 1<<13;           // switch the state of led
   SET_BIT(EXTI->PR, EXTI_PR_PR0);  // clear the flag
 }
 
