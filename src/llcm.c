@@ -1,22 +1,4 @@
 #include <llcm.h>
-#include <stm32f411xe.h>
-#include "stm32f4xx.h"
-
-void setBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
-  gpiox->ODR |= (1 << bitN);
-}
-
-// void resetBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
-// gpiox->ODR &= ~(1 << bitN);  // BR = [16;31]
-// }
-
-void toggleBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
-  gpiox->ODR ^= 1 << bitN;
-}
-
-bool stateBitN(GPIO_TypeDef* gpiox, const uint8_t bitN) {
-  return gpiox->IDR & (1 << bitN);
-}
 
 /*initialize System clock to work at 100 MHz*/
 void init_clock_100() {

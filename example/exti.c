@@ -1,11 +1,10 @@
 #include <llcm.h>
-#include "stm32f411xe.h"
-#include "stm32f4xx.h"
 
 void gpio_setup();
 void exti_setup();
 
 volatile uint32_t delay_ms_time = 0;
+
 int main() {
   init_clock_100();    // initialize MPU to work at 100 MHz
   init_SysTick(1000);  // set SysTick to work at ms
@@ -46,6 +45,6 @@ void SysTick_Handler(void) {
 }
 
 void EXTI0_IRQHandler(void) {
-  GPIOC->ODR ^= 1<<13;           // switch the state of led
+  GPIOC->ODR ^= 1 << 13;           // switch the state of led
   SET_BIT(EXTI->PR, EXTI_PR_PR0);  // clear the flag
 }

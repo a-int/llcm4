@@ -1,7 +1,5 @@
 #include <llcm.h>
 #include <usart.h>
-#include "stm32f411xe.h"
-#include "stm32f4xx.h"
 
 volatile uint32_t delay_ms_time = 0;
 

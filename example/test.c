@@ -1,6 +1,4 @@
 #include <llcm.h>
-#include "stm32f411xe.h"
-#include "stm32f4xx.h"
 
 void init_GPIO();  // initialize GPIO ports
 volatile uint32_t delay_ms_time = 0;
@@ -11,10 +9,10 @@ int main() {
   init_SysTick(1000);  // initialize SysTic to work at ms
   init_GPIO();
   while (1) {
-    if (!READ_BIT(GPIOA->IDR, 1<<0)) {
-      while (!READ_BIT(GPIOA->IDR, 1<<0))
+    if (!READ_BIT(GPIOA->IDR, 1 << 0)) {
+      while (!READ_BIT(GPIOA->IDR, 1 << 0))
         ;
-      GPIOC->ODR ^= 1<<13;
+      GPIOC->ODR ^= 1 << 13;
       delay_ms(100);
     }
   }
@@ -35,6 +33,6 @@ void init_GPIO() {
 }
 
 void SysTick_Handler(void) {
-  if (delay_ms_time> 0)
+  if (delay_ms_time > 0)
     --delay_ms_time;
 }

@@ -24,7 +24,7 @@ void init_usart2_115200() {
   MODIFY_REG(USART2->BRR, USART_BRR_DIV_Fraction, (2 << USART_BRR_DIV_Fraction_Pos));
   MODIFY_REG(USART2->BRR, USART_BRR_DIV_Mantissa, (27 << USART_BRR_DIV_Mantissa_Pos));
 
-  SET_BIT(USART2->CR1, USART_CR1_RXNEIE);  //enable IRQ for ready to read
+  SET_BIT(USART2->CR1, USART_CR1_RXNEIE);   //enable IRQ for ready to read
   CLEAR_BIT(USART2->CR1, USART_CR1_TXEIE);  //disable IRQ for completing the  transimition
 
   SET_BIT(USART2->CR1, USART_CR1_TE);  // enable transmitter
@@ -46,4 +46,3 @@ void usart_send(uint8_t* data, uint32_t size) {
     usart_sendByte(*byte++);
   }
 }
-
