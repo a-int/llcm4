@@ -69,3 +69,9 @@ void setupSW() {
   CLEAR_BIT(GPIOB->MODER, GPIO_MODER_MODE4);
   SET_BIT(GPIOB->MODER, GPIO_MODER_MODE4);
 }
+
+void delay_ms(uint32_t time) {
+  delay_ms_time = time;
+  while (delay_ms_time > 0)
+    ;
+}

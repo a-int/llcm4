@@ -2,9 +2,8 @@
 #include "stm32f411xe.h"
 #include "stm32f4xx.h"
 
-volatile uint32_t DELAY_MS_TIME = 0;
 void init_GPIO();  // initialize GPIO ports
-void delay_ms(uint32_t time_ms);
+volatile uint32_t delay_ms_time = 0;
 
 int main() {
   setupSW();           // setup pins for debug work
@@ -35,13 +34,7 @@ void init_GPIO() {
   SET_BIT(GPIOA->PUPDR, GPIO_PUPDR_PUPD0_0);      //select no push no pull mode
 }
 
-void delay_ms(uint32_t time_ms) {
-  DELAY_MS_TIME = time_ms;
-  while (DELAY_MS_TIME)
-    ;
-}
-
 void SysTick_Handler(void) {
-  if (DELAY_MS_TIME > 0)
-    --DELAY_MS_TIME;
+  if (delay_ms_time> 0)
+    --delay_ms_time;
 }

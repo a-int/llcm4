@@ -3,7 +3,6 @@
 #include "stm32f411xe.h"
 #include "stm32f4xx.h"
 
-void delay_ms(uint32_t time);
 volatile uint32_t delay_ms_time = 0;
 
 int main() {
@@ -12,12 +11,6 @@ int main() {
   init_SysTick(1000);  // initialize SysTick to work at ms
   init_usart2_115200();
   while (1) {}
-}
-
-void delay_ms(uint32_t time) {
-  delay_ms_time = time;
-  while (delay_ms_time > 0)
-    ;
 }
 
 void SysTick_Handler(void) {
