@@ -38,3 +38,15 @@ target_link_options(usart PRIVATE
     ${common_flags}
     ${link_flags}
 )
+
+add_library( flash OBJECT 
+	flash.c
+)
+
+target_include_directories(flash PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/vendor/)
+target_include_directories(flash PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/llcm/)
+target_link_options(flash PRIVATE 
+    ${arch_flags} 
+    ${common_flags}
+    ${link_flags}
+)
