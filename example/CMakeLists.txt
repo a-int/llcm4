@@ -1,17 +1,17 @@
 project(${CMAKE_PROJECT_NAME})
 
-add_executable(test.elf 
-	test.c
+add_executable(gpio.elf 
+	gpio.c
 )
-target_include_directories(test.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/vendor/)
-target_include_directories(test.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/llcm/)
-target_link_options(test.elf PRIVATE 
+target_include_directories(gpio.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/vendor/)
+target_include_directories(gpio.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/llcm/)
+target_link_options(gpio.elf PRIVATE 
     ${arch_flags} 
     ${common_flags}
     ${link_flags}
 )
 
-target_link_libraries(test.elf
+target_link_libraries(gpio.elf
 	llcm_core
 	llcm
 )
