@@ -4,7 +4,7 @@ void init_GPIO();  // initialize GPIO ports
 volatile uint32_t delay_ms_time = 0;
 
 int main() {
-  setupSW();           // setup pins for debug work
+  initSW();           // setup pins for debug work
   init_clock_100();    // initialize clock speed as 100 MHz
   init_SysTick(1000);  // initialize SysTic to work at ms
   init_GPIO();

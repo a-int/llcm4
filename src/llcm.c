@@ -40,7 +40,7 @@ void init_SysTick(uint32_t ticks) {
 }
 
 //Serial Wire setup. NOTE unused pins set as analog
-void setupSW() {
+void initSW() {
   /* Set PA15(JTDI), PB3(JTDO), PB4(NJRST) as analog to minimize power consuption unless it used*/
   CLEAR_BIT(GPIOA->MODER, GPIO_MODER_MODE15);
   SET_BIT(GPIOA->MODER, GPIO_MODER_MODE15);

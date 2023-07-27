@@ -4,7 +4,7 @@
 volatile uint32_t delay_ms_time = 0;
 
 int main() {
-  setupSW();           // setup pins for Serial Wire debug
+  initSW();           // setup pins for Serial Wire debug
   init_clock_100();    // initialize MPU to work at 100 MHz
   init_SysTick(1000);  // initialize SysTick to work at ms
   init_usart2_115200();
