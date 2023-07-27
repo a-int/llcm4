@@ -12,6 +12,7 @@ target_link_options(test.elf PRIVATE
 )
 
 target_link_libraries(test.elf
+	llcm_core
 	llcm
 )
 
@@ -27,6 +28,7 @@ target_link_options(exti.elf PRIVATE
 )
 
 target_link_libraries(exti.elf
+	llcm_core
 	llcm
 )
 
@@ -42,5 +44,7 @@ target_link_options(usart.elf PRIVATE
 )
 
 target_link_libraries(usart.elf
+	llcm_core
 	llcm
+	usart
 )
