@@ -36,7 +36,7 @@ void USART2_IRQHandler() {
       __disable_irq();                                  //disable all irqs
       FLASH_unlock();
       FLASH_clear_section(2);  // sector 3: 0x0800_8000  -  0x0800_bfff
-      FLASH_write(huart2.rx_data, destination, huart2.rx_data_counter);
+      FLASH_write((uint32_t*)huart2.rx_data, destination, huart2.rx_data_counter/4);
       FLASH_lock();
       __enable_irq();  //enable irqs back
     }

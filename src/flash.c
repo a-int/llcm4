@@ -17,14 +17,13 @@ void FLASH_clear_section(uint32_t sectorN) {
   SET_BIT(FLASH->CR, FLASH_CR_STRT);                                   // initiate the clearing of the selected section
 }
 
-void FLASH_write(uint8_t* src, uint32_t* dest, uint32_t size) {
+void FLASH_write(uint32_t* src, uint32_t* dest, uint32_t size) {
   while ((READ_BIT(FLASH->SR, FLASH_SR_BSY))) {}            // whait while Busy
   SET_BIT(FLASH->CR, FLASH_CR_PG);                          //programming mode
   MODIFY_REG(FLASH->CR, FLASH_CR_PSIZE, FLASH_CR_PSIZE_1);  //select word mode for erasing
 
-  for (uint32_t i = 0; i < size; i += 4) {
-    dest[i / 4] = ((((uint32_t)src[i + 0]) << 0) | (((uint32_t)src[i + 1]) << 8) |
-                        (((uint32_t)src[i + 2]) << 16) | (((uint32_t)src[i + 3]) << 24));
+  for(uint32_t i = 0; i < size; ++i){
+    dest[i] = src[i];
   }
   
   while ((READ_BIT(FLASH->SR, FLASH_SR_BSY))) {}  // whait while Busy
