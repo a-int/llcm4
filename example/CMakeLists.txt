@@ -66,3 +66,20 @@ target_link_libraries(flash.elf
 	usart
 	flash
 )
+
+add_executable(dma.elf 
+	dma.c
+)
+target_include_directories(dma.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/vendor/)
+target_include_directories(dma.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/llcm/)
+target_link_options(dma.elf PRIVATE 
+    ${arch_flags} 
+    ${common_flags}
+    ${link_flags}
+)
+
+target_link_libraries(dma.elf
+	llcm_core
+	llcm
+	usart
+)
