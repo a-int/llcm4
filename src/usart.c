@@ -33,6 +33,7 @@ void init_usart2_115200() {
   __base_init_usart2_115200();
 
   SET_BIT(USART2->CR1, USART_CR1_RXNEIE);   //enable IRQ for ready to read
+  SET_BIT(USART2->CR1, USART_SR_IDLE);      //enable IRQ if IDLE line detected
   CLEAR_BIT(USART2->CR1, USART_CR1_TXEIE);  //disable IRQ for completing the transimition
   NVIC_EnableIRQ(USART2_IRQn);              // turn on IRQs for USART 2
 }
