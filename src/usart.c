@@ -54,3 +54,11 @@ void usart_send(uint8_t* data, uint32_t size) {
     usart_sendByte(*data++);
   }
 }
+
+uint32_t strlen(const char* str){
+  uint32_t lenght = 0;
+  while(str[lenght] != '\0' && lenght != UINT32_MAX){
+    ++lenght;
+  }
+  return lenght;
+}
