@@ -66,3 +66,11 @@ uint32_t strlen(const char* str){
   }
   return lenght;
 }
+
+inline uint8_t isIDLE(){
+  return READ_BIT(USART2->SR, USART_SR_IDLE);
+}
+
+inline uint8_t isRXNE(){
+  return READ_BIT(USART2->SR, USART_SR_RXNE);
+}

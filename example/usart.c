@@ -33,14 +33,14 @@ void SysTick_Handler(void) {
 }
 
 void USART2_IRQHandler(void) {
-  if (READ_BIT(USART2->SR, USART_SR_RXNE)) {  //if data may be read
+  if (isRXNE()) {  //if data may be read
     if ('F' == USART2->DR) {
       GPIOC->ODR ^= 1 << 13;
       const char* msg = "Hello world!\r\n";
       usart_send((uint8_t*)msg, strlen(msg));
     }
   }
-  if (READ_BIT(USART2->SR, USART_SR_IDLE)) {
+  if (isIDLE()) {
     USART2->DR;  // reset IDLE flag
       const char* msg = "IDLE LINE DETECTED\r\n";
       usart_send((uint8_t*)msg, strlen(msg));

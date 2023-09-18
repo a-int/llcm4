@@ -9,3 +9,5 @@ void usart_sendByte(uint8_t data);
 void usart_send(uint8_t* data, uint32_t size);
 void usart_sendString(const char* data);
 uint32_t strlen(const char* str);
+extern uint8_t isIDLE();
+extern uint8_t isRXNE();
