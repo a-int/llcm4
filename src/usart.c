@@ -6,24 +6,22 @@ void __base_init_usart_115200(USART_TypeDef* USARTx) {
   CLEAR_BIT(USARTx->CR1, USART_CR1_M_Msk);  // use 8 bits (1 bit for Pairty check)
   CLEAR_BIT(USARTx->CR1, USART_CR1_PCE);    // disable paitry bit
 
-  //USARTx in CMSIS is simply the C-style cast of address to pointer to Struct
-  //e.g. USART1 is a 32 bit address
-  switch ((uint32_t)USARTx) {
-    case USART1_BASE:
-      //BAUD = 115200 ==> DIV = PCLK2/(16*BAUD) = 54,2534722222
-      // Fraction = 0,2534722222*16 = 4,0555555552 ~ 4 (nearest)
-      // Mantissa = 54
-      MODIFY_REG(USART1->BRR, USART_BRR_DIV_Fraction, (4 << USART_BRR_DIV_Fraction_Pos));
-      MODIFY_REG(USART1->BRR, USART_BRR_DIV_Mantissa, (54 << USART_BRR_DIV_Mantissa_Pos));
-      break;
-    case USART2_BASE:
-      //BAUD = 115200 ==> DIV = PCLK1/(16*BAUD) = 27.1267361111
-      // Fraction = 0.1267361111*16 = 2.0277777776 ~ 2 (nearest)
-      // Mantissa = 27
-      MODIFY_REG(USART2->BRR, USART_BRR_DIV_Fraction, (2 << USART_BRR_DIV_Fraction_Pos));
-      MODIFY_REG(USART2->BRR, USART_BRR_DIV_Mantissa, (27 << USART_BRR_DIV_Mantissa_Pos));
-      break;
+  // NOTE for calculating the proper fraction and mantissa
+  // BAUD = 115200 ==> DIV = PCLKx/(16*BAUD) = 54,2534722222
+  // Fraction = 0,2534722222*16 = 4,0555555552 ~ 4 (nearest)
+  // Mantissa = 54
+
+  // FIXME use selected values for M N P and so on to calculate
+  // the appropriate PCLKx speed (if not maximum speed is selected)
+  double div = ((double)SystemCoreClock / (115200 * 16));
+  if(USART2 == USARTx){
+    div /= 2; // PCLK1 is twice as slower than PCLK2
   }
+  uint32_t fraction = (uint32_t)(div * 16) % 16;
+  uint32_t mantissa = (uint32_t)div;
+  MODIFY_REG(USARTx->BRR, USART_BRR_DIV_Fraction, (fraction << USART_BRR_DIV_Fraction_Pos));
+  MODIFY_REG(USARTx->BRR, USART_BRR_DIV_Mantissa, (mantissa << USART_BRR_DIV_Mantissa_Pos));
+
   SET_BIT(USARTx->CR1, USART_CR1_TE);  // enable transmitter
   SET_BIT(USARTx->CR1, USART_CR1_RE);  // enable receiver
   SET_BIT(USARTx->CR1, USART_CR1_UE);  // enable usart
