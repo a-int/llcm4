@@ -1,5 +1,7 @@
 #include <usart.h>
 #include "stm32f411xe.h"
+#include "stm32f4xx.h"
+#include "system_stm32f4xx.h"
 
 void __base_init_usart_115200(USART_TypeDef* USARTx) {
   //Usart registers set up
@@ -11,12 +13,30 @@ void __base_init_usart_115200(USART_TypeDef* USARTx) {
   // Fraction = 0,2534722222*16 = 4,0555555552 ~ 4 (nearest)
   // Mantissa = 54
 
-  // FIXME use selected values for M N P and so on to calculate
-  // the appropriate PCLKx speed (if not maximum speed is selected)
-  double div = ((double)SystemCoreClock / (115200 * 16));
-  if(USART2 == USARTx){
-    div /= 2; // PCLK1 is twice as slower than PCLK2
+  uint32_t usartBusSpeed = SystemCoreClock;
+  uint8_t AHB_prescaler = READ_BIT(RCC->CFGR, RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos;
+  if (AHB_prescaler < 0b1000) {
+    usartBusSpeed /= 1;
+  } else if (AHB_prescaler <= 0b1100) {
+    usartBusSpeed /= 2 << (AHB_prescaler - 8);
+  } else if (AHB_prescaler <= 0b1111) {
+    // +1 is added because the divider = 32 is skipped
+    usartBusSpeed /= 2 << (AHB_prescaler - 8 + 1);
   }
+  //Calculate the USART bus speed according to choosed USART
+  uint8_t APB_prescaler = 1;
+  if (USART1 == USARTx) {
+    APB_prescaler = READ_BIT(RCC->CFGR, RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_Pos;
+  } else if (USART2 == USARTx) {
+    APB_prescaler = READ_BIT(RCC->CFGR, RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_Pos;
+  }
+  if (APB_prescaler < 0b100) {
+    usartBusSpeed /= 1;
+  } else if (APB_prescaler <= 0b111) {
+    usartBusSpeed /= 2 << (APB_prescaler - 4);
+  }
+
+  double div = ((double)usartBusSpeed / (115200 * 16));
   uint32_t fraction = (uint32_t)(div * 16) % 16;
   uint32_t mantissa = (uint32_t)div;
   MODIFY_REG(USARTx->BRR, USART_BRR_DIV_Fraction, (fraction << USART_BRR_DIV_Fraction_Pos));
