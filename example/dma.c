@@ -5,6 +5,7 @@ void init_DMA();
 
 volatile uint32_t delay_ms_time = 0;
 
+#define USART USART2
 #define USART_RX_DATA_MAX 10
 uint8_t rx_data[USART_RX_DATA_MAX];
 
@@ -53,17 +54,17 @@ void init_DMA() {
 void DMA1_Stream5_IRQHandler(void) {
   if (READ_BIT(DMA1->HISR, (1 << DMA_HISR_HTIF5_Pos))) {  // if half of the data is recieved
     char msg[] = "Half done\n";
-    usart_send((uint8_t*)msg, sizeof(msg) / sizeof(msg[0]) - 1);
+    usart_send((uint8_t*)msg, sizeof(msg) / sizeof(msg[0]) - 1, USART);
     SET_BIT(DMA1->HIFCR, DMA_HIFCR_CHTIF5);  // clear interrupt flag
   }
   if (READ_BIT(DMA1->HISR, (1 << DMA_HISR_TCIF5_Pos))) {  // if data recieved completely
     char msg[] = "Complete\n";
-    usart_send((uint8_t*)msg, sizeof(msg) / sizeof(msg[0]) - 1);
+    usart_send((uint8_t*)msg, sizeof(msg) / sizeof(msg[0]) - 1, USART);
     SET_BIT(DMA1->HIFCR, DMA_HIFCR_CTCIF5);  // clear interrupt flag
   }
   if (READ_BIT(DMA1->HISR, (1 << DMA_HISR_TEIF5_Pos))) {  // if an error occurred
     char msg[] = "Error\n";
-    usart_send((uint8_t*)msg, sizeof(msg) / sizeof(msg[0]) - 1);
+    usart_send((uint8_t*)msg, sizeof(msg) / sizeof(msg[0]) - 1, USART);
     SET_BIT(DMA1->HIFCR, DMA_HIFCR_CTEIF5);  // clear interrupt flag
   }
 }

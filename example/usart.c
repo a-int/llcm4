@@ -1,7 +1,7 @@
 #include <llcm.h>
 #include <usart.h>
 
-volatile uint32_t delay_ms_time = 0;
+#define USART USART1
 
 void init_GPIO() {
   //set up for GPIOC13 (LED)
@@ -21,28 +21,24 @@ int main() {
   initSW();           // setup pins for Serial Wire debug
   init_clock_100();    // initialize MPU to work at 100 MHz
   init_SysTick(1000);  // initialize SysTick to work at ms
-  init_usart2_115200();
+  init_usart1_115200();
   init_GPIO();
   while (1) {}
 }
 
-void SysTick_Handler(void) {
-  if (delay_ms_time > 0) {
-    --delay_ms_time;
-  }
-}
+void SysTick_Handler(void){}
 
-void USART2_IRQHandler(void) {
-  if (isRXNE()) {  //if data may be read
-    if ('F' == USART2->DR) {
+void USART1_IRQHandler(void) {
+  if (isRXNE(USART)) {  //if data may be read
+    if ('F' == USART->DR) {
       GPIOC->ODR ^= 1 << 13;
       const char* msg = "Hello world!\r\n";
-      usart_send((uint8_t*)msg, strlen(msg));
+      usart_send((uint8_t*)msg, strlen(msg), USART);
     }
   }
-  if (isIDLE()) {
-    USART2->DR;  // reset IDLE flag
+  if (isIDLE(USART)) {
+      USART->DR;  // reset IDLE flag
       const char* msg = "IDLE LINE DETECTED\r\n";
-      usart_send((uint8_t*)msg, strlen(msg));
+      usart_send((uint8_t*)msg, strlen(msg), USART);
   }
 }
