@@ -16,7 +16,7 @@ int main() {
   initSW();              // init serial wire
   init_clock_100();      //initialize MPU to work at 100 MHz
   init_SysTick(1000);    // initialize SysTick to work at ms
-  init_usart2_115200();  // initialize USART2 with Baudrate = 115200
+  init_usart2(115200);  // initialize USART2 with Baudrate = 115200
   while (1) {}
 }
 

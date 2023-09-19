@@ -13,7 +13,7 @@ int main() {
   initSW();                  //setup serial wire
   init_clock_100();          //initialize MPU to work at 100 MHz
   init_SysTick(1000);        //initialize SysTick to work at ms
-  init_usart2_dma_115200();  //initialize usart2 to work with dma
+  init_usart2_dma(115200);  //initialize usart2 to work with dma
   init_DMA();
   while (1) {}
 }

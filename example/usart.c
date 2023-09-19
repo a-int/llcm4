@@ -1,7 +1,8 @@
 #include <llcm.h>
 #include <usart.h>
 
-#define USART USART2
+#define USART USART1
+#define USART_BAUD_RATE 9600
 
 void init_GPIO() {
   //set up for GPIOC13 (LED)
@@ -21,14 +22,14 @@ int main() {
   initSW();           // setup pins for Serial Wire debug
   init_clock_100();    // initialize MPU to work at 100 MHz
   init_SysTick(1000);  // initialize SysTick to work at ms
-  init_usart2_115200();
+  init_usart1(USART_BAUD_RATE);
   init_GPIO();
   while (1) {}
 }
 
 void SysTick_Handler(void){}
 
-void USART2_IRQHandler(void) {
+void USART1_IRQHandler(void) {
   if (isRXNE(USART)) {  //if data may be read
     if ('F' == USART->DR) {
       GPIOC->ODR ^= 1 << 13;

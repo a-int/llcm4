@@ -3,7 +3,7 @@
 #include "stm32f4xx.h"
 #include "system_stm32f4xx.h"
 
-void __base_init_usart_115200(USART_TypeDef* USARTx) {
+void __base_init_usart(USART_TypeDef* USARTx, uint32_t baudRate) {
   //Usart registers set up
   CLEAR_BIT(USARTx->CR1, USART_CR1_M_Msk);  // use 8 bits (1 bit for Pairty check)
   CLEAR_BIT(USARTx->CR1, USART_CR1_PCE);    // disable paitry bit
@@ -36,7 +36,7 @@ void __base_init_usart_115200(USART_TypeDef* USARTx) {
     usartBusSpeed /= 2 << (APB_prescaler - 4);
   }
 
-  double div = ((double)usartBusSpeed / (115200 * 16));
+  double div = ((double)usartBusSpeed / (baudRate * 16));
   uint32_t fraction = (uint32_t)(div * 16) % 16;
   uint32_t mantissa = (uint32_t)div;
   MODIFY_REG(USARTx->BRR, USART_BRR_DIV_Fraction, (fraction << USART_BRR_DIV_Fraction_Pos));
@@ -77,9 +77,9 @@ void __usart1_gpio_setup() {
   SET_BIT(GPIOA->OSPEEDR, GPIO_OSPEEDER_OSPEEDR10);                          // select High speed for PA10
 }
 
-void init_usart2_115200() {
+void init_usart2(uint32_t baudRate) {
   __usart2_gpio_setup();
-  __base_init_usart_115200(USART2);
+  __base_init_usart(USART2, baudRate);
 
   SET_BIT(USART2->CR1, USART_CR1_RXNEIE);   //enable IRQ for ready to read
   SET_BIT(USART2->CR1, USART_SR_IDLE);      //enable IRQ if IDLE line detected
@@ -87,9 +87,9 @@ void init_usart2_115200() {
   NVIC_EnableIRQ(USART2_IRQn);              // turn on IRQs for USART 2
 }
 
-void init_usart1_115200() {
+void init_usart1(uint32_t baudRate) {
   __usart1_gpio_setup();
-  __base_init_usart_115200(USART1);
+  __base_init_usart(USART1, baudRate);
 
   SET_BIT(USART1->CR1, USART_CR1_RXNEIE);   //enable IRQ for ready to read
   SET_BIT(USART1->CR1, USART_SR_IDLE);      //enable IRQ if IDLE line detected
@@ -97,9 +97,9 @@ void init_usart1_115200() {
   NVIC_EnableIRQ(USART1_IRQn);              // turn on IRQs for USART 2
 }
 
-void init_usart2_dma_115200() {
+void init_usart2_dma(uint32_t baudRate) {
   __usart2_gpio_setup();
-  __base_init_usart_115200(USART2);
+  __base_init_usart(USART2, baudRate);
 
   SET_BIT(USART2->CR3, USART_CR3_DMAR);  //select DMA for reception
 }
