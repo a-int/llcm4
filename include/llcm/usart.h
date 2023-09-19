@@ -2,6 +2,7 @@
 #include "stm32f4xx.h"
 #include <stdint.h>
 
+double __calculateDiv(USART_TypeDef* USARTx, uint32_t baudRate);
 void __base_init_usart(USART_TypeDef* USARTx, uint32_t baudRate);
 void __usart2_gpio_setup(void);
 void __usart1_gpio_setup(void);

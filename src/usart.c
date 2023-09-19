@@ -3,16 +3,11 @@
 #include "stm32f4xx.h"
 #include "system_stm32f4xx.h"
 
-void __base_init_usart(USART_TypeDef* USARTx, uint32_t baudRate) {
-  //Usart registers set up
-  CLEAR_BIT(USARTx->CR1, USART_CR1_M_Msk);  // use 8 bits (1 bit for Pairty check)
-  CLEAR_BIT(USARTx->CR1, USART_CR1_PCE);    // disable paitry bit
-
+double __calculateDiv(USART_TypeDef* USARTx, uint32_t baudRate){
   // NOTE for calculating the proper fraction and mantissa
   // BAUD = 115200 ==> DIV = PCLKx/(16*BAUD) = 54,2534722222
   // Fraction = 0,2534722222*16 = 4,0555555552 ~ 4 (nearest)
   // Mantissa = 54
-
   uint32_t usartBusSpeed = SystemCoreClock;
   uint8_t AHB_prescaler = READ_BIT(RCC->CFGR, RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos;
   if (AHB_prescaler < 0b1000) {
@@ -23,7 +18,7 @@ void __base_init_usart(USART_TypeDef* USARTx, uint32_t baudRate) {
     // +1 is added because the divider = 32 is skipped
     usartBusSpeed /= 2 << (AHB_prescaler - 8 + 1);
   }
-  //Calculate the USART bus speed according to choosed USART
+  //Calculate the USART bus speed according to chosen USART
   uint8_t APB_prescaler = 1;
   if (USART1 == USARTx) {
     APB_prescaler = READ_BIT(RCC->CFGR, RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_Pos;
@@ -35,8 +30,15 @@ void __base_init_usart(USART_TypeDef* USARTx, uint32_t baudRate) {
   } else if (APB_prescaler <= 0b111) {
     usartBusSpeed /= 2 << (APB_prescaler - 4);
   }
+  return ((double)usartBusSpeed / (baudRate * 16));
+}
 
-  double div = ((double)usartBusSpeed / (baudRate * 16));
+void __base_init_usart(USART_TypeDef* USARTx, uint32_t baudRate) {
+  //Usart registers set up
+  CLEAR_BIT(USARTx->CR1, USART_CR1_M_Msk);  // use 8 bits (1 bit for Pairty check)
+  CLEAR_BIT(USARTx->CR1, USART_CR1_PCE);    // disable paitry bit
+
+  double div = __calculateDiv(USARTx, baudRate);
   uint32_t fraction = (uint32_t)(div * 16) % 16;
   uint32_t mantissa = (uint32_t)div;
   MODIFY_REG(USARTx->BRR, USART_BRR_DIV_Fraction, (fraction << USART_BRR_DIV_Fraction_Pos));
