@@ -2,7 +2,7 @@
 #include <usart.h>
 
 #define USART USART1
-#define USART_BAUD_RATE 9600
+#define USART_BAUD_RATE eBaudRate9600
 
 void init_GPIO() {
   //set up for GPIOC13 (LED)
@@ -22,7 +22,7 @@ int main() {
   initSW();           // setup pins for Serial Wire debug
   init_clock_HSE(25, 200, pllp_div2, AHB_div1, APB_div2, APB_div1);    // initialize MPU to work at 100 MHz
   init_SysTick(1000);  // initialize SysTick to work at ms
-  init_usart1(USART_BAUD_RATE);
+  init_usart(USART, USART_BAUD_RATE);
   init_GPIO();
   while (1) {}
 }

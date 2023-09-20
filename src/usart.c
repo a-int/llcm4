@@ -3,7 +3,7 @@
 #include "stm32f4xx.h"
 #include "system_stm32f4xx.h"
 
-double __calculateDiv(USART_TypeDef* USARTx, uint32_t baudRate){
+double __calculateDiv(USART_TypeDef* USARTx, eUSARTBaudRate baudRate){
   // NOTE for calculating the proper fraction and mantissa
   // BAUD = 115200 ==> DIV = PCLKx/(16*BAUD) = 54,2534722222
   // Fraction = 0,2534722222*16 = 4,0555555552 ~ 4 (nearest)
@@ -33,7 +33,7 @@ double __calculateDiv(USART_TypeDef* USARTx, uint32_t baudRate){
   return ((double)usartBusSpeed / (baudRate * 16));
 }
 
-void __base_init_usart(USART_TypeDef* USARTx, uint32_t baudRate) {
+void __base_init_usart(USART_TypeDef* USARTx, eUSARTBaudRate baudRate) {
   //Usart registers set up
   CLEAR_BIT(USARTx->CR1, USART_CR1_M_Msk);  // use 8 bits (1 bit for Pairty check)
   CLEAR_BIT(USARTx->CR1, USART_CR1_PCE);    // disable paitry bit
@@ -79,27 +79,80 @@ void __usart1_gpio_setup() {
   SET_BIT(GPIOA->OSPEEDR, GPIO_OSPEEDER_OSPEEDR10);                          // select High speed for PA10
 }
 
-void init_usart2(uint32_t baudRate) {
-  __usart2_gpio_setup();
-  __base_init_usart(USART2, baudRate);
-
-  SET_BIT(USART2->CR1, USART_CR1_RXNEIE);   //enable IRQ for ready to read
-  SET_BIT(USART2->CR1, USART_SR_IDLE);      //enable IRQ if IDLE line detected
-  CLEAR_BIT(USART2->CR1, USART_CR1_TXEIE);  //disable IRQ for completing the transimition
-  NVIC_EnableIRQ(USART2_IRQn);              // turn on IRQs for USART 2
+void __usartx_gpio_setup(USART_TypeDef* USARTx){
+  switch((uint32_t)USARTx){
+    case USART1_BASE:
+      __usart1_gpio_setup();
+      break;
+    case USART2_BASE:
+      __usart2_gpio_setup();
+      break;
+    default:
+      break;
+  }
 }
 
-void init_usart1(uint32_t baudRate) {
-  __usart1_gpio_setup();
-  __base_init_usart(USART1, baudRate);
-
-  SET_BIT(USART1->CR1, USART_CR1_RXNEIE);   //enable IRQ for ready to read
-  SET_BIT(USART1->CR1, USART_SR_IDLE);      //enable IRQ if IDLE line detected
-  CLEAR_BIT(USART1->CR1, USART_CR1_TXEIE);  //disable IRQ for completing the transimition
-  NVIC_EnableIRQ(USART1_IRQn);              // turn on IRQs for USART 2
+void irq_enable(USART_TypeDef* USARTx){
+  switch((uint32_t)USARTx){
+    case USART1_BASE:
+      NVIC_EnableIRQ(USART1_IRQn);              // turn on IRQs for USART 2
+      break;
+    case USART2_BASE:
+      NVIC_EnableIRQ(USART2_IRQn);              // turn on IRQs for USART 2
+      break;
+    default:
+      break;
+  }
 }
+inline void  usartxRXNEIEup(USART_TypeDef* USARTx){
+  SET_BIT(USARTx->CR1, USART_CR1_RXNEIE);   //enable IRQ for ready to read
+}
+inline void  usartxRXNEIEdown(USART_TypeDef* USARTx){
+  CLEAR_BIT(USARTx->CR1, USART_CR1_RXNEIE);   //enable IRQ for ready to read
+}
+inline void  usartxIDLEIEup(USART_TypeDef* USARTx){
+  SET_BIT(USARTx->CR1, USART_CR1_IDLEIE);   //enable IRQ for ready to read
+}
+inline void  usartxIDLEIEdown(USART_TypeDef* USARTx){
+  CLEAR_BIT(USARTx->CR1, USART_CR1_IDLEIE);   //enable IRQ for ready to read
+}
+inline void  usartxTXEIEup(USART_TypeDef* USARTx){
+  SET_BIT(USARTx->CR1, USART_CR1_TXEIE);   //enable IRQ for ready to read
+}
+inline void  usartxTXEIEdown(USART_TypeDef* USARTx){
+  CLEAR_BIT(USARTx->CR1, USART_CR1_TXEIE);   //enable IRQ for ready to read
+}
+void init_usart(USART_TypeDef* USARTx, eUSARTBaudRate baudRate){
+  __usartx_gpio_setup(USARTx);
+  __base_init_usart(USARTx, baudRate);
 
-void init_usart2_dma(uint32_t baudRate) {
+  usartxRXNEIEup(USARTx);
+  usartxIDLEIEup(USARTx);
+  usartxTXEIEdown(USARTx);
+ 
+  irq_enable(USARTx);
+}
+// void init_usart2(uint32_t baudRate) {
+//   __usart2_gpio_setup();
+//   __base_init_usart(USART2, baudRate);
+
+//   SET_BIT(USART2->CR1, USART_CR1_RXNEIE);   //enable IRQ for ready to read
+//   SET_BIT(USART2->CR1, USART_SR_IDLE);      //enable IRQ if IDLE line detected
+//   CLEAR_BIT(USART2->CR1, USART_CR1_TXEIE);  //disable IRQ for completing the transimition
+//   NVIC_EnableIRQ(USART2_IRQn);              // turn on IRQs for USART 2
+// }
+
+// void init_usart1(uint32_t baudRate) {
+//   __usart1_gpio_setup();
+//   __base_init_usart(USART1, baudRate);
+
+//   SET_BIT(USART1->CR1, USART_CR1_RXNEIE);   //enable IRQ for ready to read
+//   SET_BIT(USART1->CR1, USART_SR_IDLE);      //enable IRQ if IDLE line detected
+//   CLEAR_BIT(USART1->CR1, USART_CR1_TXEIE);  //disable IRQ for completing the transimition
+//   NVIC_EnableIRQ(USART1_IRQn);              // turn on IRQs for USART 2
+// }
+
+void init_usart2_dma(eUSARTBaudRate baudRate) {
   __usart2_gpio_setup();
   __base_init_usart(USART2, baudRate);
 
