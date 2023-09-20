@@ -6,7 +6,7 @@ void exti_setup();
 volatile uint32_t delay_ms_time = 0;
 
 int main() {
-  init_clock_100();    // initialize MPU to work at 100 MHz
+  init_clock_HSE(25, 200, pllp_div2, AHB_div1, APB_div2, APB_div1);    // initialize MPU to work at 100 MHz
   init_SysTick(1000);  // set SysTick to work at ms
   gpio_setup();        // set up gpio ports for exti
   exti_setup();        // set up exti

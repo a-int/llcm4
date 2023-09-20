@@ -1,7 +1,9 @@
 #include <llcm.h>
+#include <stdint.h>
+#include "stm32f411xe.h"
 
 /*initialize System clock to work at 100 MHz*/
-void init_clock_100() {
+void init_clock_HSE(uint32_t M_arg, uint32_t N_arg, ePLLP_arg P_arg, AHB_divider AHB, APB_divider APB1, APB_divider APB2) {
   SET_BIT(RCC->APB1ENR, RCC_APB1ENR_PWREN);
   SET_BIT(FLASH->ACR, (FLASH_ACR_LATENCY_3WS | FLASH_ACR_DCEN | FLASH_ACR_ICEN));
 
@@ -13,13 +15,13 @@ void init_clock_100() {
   SET_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLSRC_HSE);  //select PLL inputr as HSE
   SET_BIT(RCC->CR, RCC_CR_CSSON);                 // turn on CSS
 
-  MODIFY_REG(RCC->PLLCFGR, RCC_PLLCFGR_PLLM, (25UL << RCC_PLLCFGR_PLLM_Pos));
-  MODIFY_REG(RCC->PLLCFGR, RCC_PLLCFGR_PLLN, (200UL << RCC_PLLCFGR_PLLN_Pos));
-  CLEAR_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLP);  // set P = 2
+  MODIFY_REG(RCC->PLLCFGR, RCC_PLLCFGR_PLLM, (M_arg << RCC_PLLCFGR_PLLM_Pos));
+  MODIFY_REG(RCC->PLLCFGR, RCC_PLLCFGR_PLLN, (N_arg << RCC_PLLCFGR_PLLN_Pos));
+  CLEAR_BIT(RCC->PLLCFGR, P_arg);
 
-  // CLEAR_BIT(RCC->CFGR, RCC_CFGR_HPRE);     // set AHB = 1
-  SET_BIT(RCC->CFGR, RCC_CFGR_PPRE1_DIV2);  // set APB1 = 2
-  // CLEAR_BIT(RCC->CFGR, RCC_CFGR_PPRE2);    // set APB2 = 1
+  MODIFY_REG(RCC->CFGR, RCC_CFGR_HPRE, (AHB << RCC_CFGR_HPRE_Pos)); //set AHB prescaler
+  MODIFY_REG(RCC->CFGR, RCC_CFGR_PPRE1, (APB1 << RCC_CFGR_PPRE1_Pos)); //set APB1 prescaler
+  MODIFY_REG(RCC->CFGR, RCC_CFGR_PPRE2, (APB2 << RCC_CFGR_PPRE2_Pos)); //set APB2 prescaler
 
   SET_BIT(RCC->CR, RCC_CR_PLLON);
   while ((READ_BIT(RCC->CR, RCC_CR_PLLRDY)) == RESET)

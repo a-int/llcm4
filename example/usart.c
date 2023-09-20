@@ -20,7 +20,7 @@ void init_GPIO() {
 
 int main() {
   initSW();           // setup pins for Serial Wire debug
-  init_clock_100();    // initialize MPU to work at 100 MHz
+  init_clock_HSE(25, 200, pllp_div2, AHB_div1, APB_div2, APB_div1);    // initialize MPU to work at 100 MHz
   init_SysTick(1000);  // initialize SysTick to work at ms
   init_usart1(USART_BAUD_RATE);
   init_GPIO();

@@ -5,7 +5,7 @@ volatile uint32_t delay_ms_time = 0;
 
 int main() {
   initSW();           // setup pins for debug work
-  init_clock_100();    // initialize clock speed as 100 MHz
+  init_clock_HSE(25, 200, pllp_div2, AHB_div1, APB_div2, APB_div1);    // initialize clock speed as 100 MHz
   init_SysTick(1000);  // initialize SysTic to work at ms
   init_GPIO();
   while (1) {
