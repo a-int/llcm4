@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: Main Page</title>
+<title>My Project: llcm4</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,10 +68,26 @@ $(function() {
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">My Project Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">llcm4 </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md__2_users_2mymac_2_documents_2projects_2stm_2llcm4_2_r_e_a_d_m_e"></a>Low level cortex-M4 library for STM32F411</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Build</h1>
+<ul>
+<li>Make sure you have installed arm toolcahin, cmake. <div class="fragment"><div class="line">$ arm-none-eabi-gcc -v</div>
+<div class="line">$ cmake --version</div>
+</div><!-- fragment --><ul>
+<li>if none of previous commands led to errors then you can try to compile library using the cmake template. <div class="fragment"><div class="line">$ cd &lt;path-of-this-repo&gt;</div>
+<div class="line">$ mkdir build &amp;&amp; cd build</div>
+<div class="line">$ cmake -Darm-toolchain-path=&lt;path-to-arm-toolcahin&gt; -DCMAKE_TOOLCHAIN_FILE=../arm-toolchain.cmake -DBUILD_EXAMPLES=On ..</div>
+<div class="line">$ cmake --build .</div>
+</div><!-- fragment --> </li>
+</ul>
+</li>
+</ul>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
