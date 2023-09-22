@@ -14,3 +14,6 @@ Low level cortex-M4 library for STM32F411
 	$ cmake -Darm-toolchain-path=<path-to-arm-toolcahin> -DCMAKE_TOOLCHAIN_FILE=../arm-toolchain.cmake -DBUILD_EXAMPLES=On ..
 	$ cmake --build .
 	```
+
+# Documentation
+The documentation may be found [here](https://raw.githack.com/a-int/llcm4/main/Documentation/html/index.html)
