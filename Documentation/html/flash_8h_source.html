@@ -81,12 +81,21 @@ $(document).ready(function() { init_codefold(0); });
   <div class="headertitle"><div class="title">flash.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keywordtype">void</span> FLASH_unlock(<span class="keywordtype">void</span>);                                     <span class="comment">//unlock the FLASH</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keywordtype">void</span> FLASH_lock(<span class="keywordtype">void</span>);                                       <span class="comment">//lock the FLASH</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keywordtype">void</span> FLASH_clear_section(uint32_t sectorN);                         <span class="comment">// clear the firmware data</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keywordtype">void</span> FLASH_write(uint32_t* src, uint32_t* dest, uint32_t size);  <span class="comment">// write the firmware data</span></div>
+<a href="flash_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keywordtype">void</span> <a class="code hl_function" href="flash_8h.html#a65aba3251eb4a5b642f37ccbaa1c6ca5">FLASH_unlock</a>(<span class="keywordtype">void</span>);                                     <span class="comment">//unlock the FLASH</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">void</span> <a class="code hl_function" href="flash_8h.html#a52c76e7611325cb8e94d1252f69e5419">FLASH_lock</a>(<span class="keywordtype">void</span>);                                       <span class="comment">//lock the FLASH</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keywordtype">void</span> <a class="code hl_function" href="flash_8h.html#a447171396cb1a38be5ef984f5f4936db">FLASH_clear_section</a>(uint32_t sectorN);                         <span class="comment">// clear the firmware data</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keywordtype">void</span> <a class="code hl_function" href="flash_8h.html#afaac53ea2d743a7895996a26b4295c44">FLASH_write</a>(uint32_t* src, uint32_t* dest, uint32_t size);  <span class="comment">// write the firmware data</span></div>
+<div class="ttc" id="aflash_8h_html_a447171396cb1a38be5ef984f5f4936db"><div class="ttname"><a href="flash_8h.html#a447171396cb1a38be5ef984f5f4936db">FLASH_clear_section</a></div><div class="ttdeci">void FLASH_clear_section(uint32_t sectorN)</div><div class="ttdef"><b>Definition</b> flash.c:13</div></div>
+<div class="ttc" id="aflash_8h_html_a52c76e7611325cb8e94d1252f69e5419"><div class="ttname"><a href="flash_8h.html#a52c76e7611325cb8e94d1252f69e5419">FLASH_lock</a></div><div class="ttdeci">void FLASH_lock(void)</div><div class="ttdef"><b>Definition</b> flash.c:9</div></div>
+<div class="ttc" id="aflash_8h_html_a65aba3251eb4a5b642f37ccbaa1c6ca5"><div class="ttname"><a href="flash_8h.html#a65aba3251eb4a5b642f37ccbaa1c6ca5">FLASH_unlock</a></div><div class="ttdeci">void FLASH_unlock(void)</div><div class="ttdef"><b>Definition</b> flash.c:4</div></div>
+<div class="ttc" id="aflash_8h_html_afaac53ea2d743a7895996a26b4295c44"><div class="ttname"><a href="flash_8h.html#afaac53ea2d743a7895996a26b4295c44">FLASH_write</a></div><div class="ttdeci">void FLASH_write(uint32_t *src, uint32_t *dest, uint32_t size)</div><div class="ttdef"><b>Definition</b> flash.c:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
