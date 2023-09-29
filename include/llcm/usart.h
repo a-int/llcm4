@@ -1,6 +1,6 @@
 /**
 *  @file usart.h
-*  The collection of functions and constant for simple USART usage with CMSIS API 
+*  The collection of functions and enums for simple USART usage with CMSIS API 
 */
 #pragma once
 #include "stm32f4xx.h"
@@ -18,7 +18,7 @@ typedef enum {
 
 /**
 * usart.h
-* The function to initialize USART using specific baud rate and USART module
+* The function is used to initialise USART using specific baud rate and USART module
 * @code{c}
 * void init_usart(USART_TypeDef* USARTx, eUSARTBaudRate baudRate);
 * @endcode
@@ -26,19 +26,19 @@ typedef enum {
 * @code{c}
 * int main(void){
 *  *** any other initialization ***
-*  init_usart(USART1, eBaudRate115200); // initialize USART1 to work at baud rate 115200
-*  usart_sendString("The usart is initialized\r\n"); // send string to receiver
+*  init_usart(USART1, eBaudRate115200); // initialise USART1 to work at baud rate 115200
+*  usart_sendString("The usart is initialised\r\n"); // send string to receiver
 *  return 0; 
 * }
 * @endcode
-* @param USARTx is the USART to initialize
-* @param baudRate is the desired baud rate which may be selected using #eUSARTBaudRate enumeration
+* @param USARTx the USART to initialise
+* @param baudRate the desired baud rate which may be selected using #eUSARTBaudRate enumeration
 */
 void init_usart(USART_TypeDef* USARTx, eUSARTBaudRate baudRate);
 
 /**
 * usart.h
-* The function to initialize USART using specific baud rate and USART module in DMA mode
+* The function is used to initialise USART using specific baud rate and USART module in DMA mode
 * Pretty the same as usart_init() but enables interrupt specific for DMA mode
 * @code{c}
 * void init_usart2_dma(eUSARTBaudRate baudRate);
@@ -47,11 +47,11 @@ void init_usart(USART_TypeDef* USARTx, eUSARTBaudRate baudRate);
 * @code{c}
 * int main(void){
 *  *** any other initialization ***
-*  init_usart2_dma(eBaudRate115200); // initialize USART2 to work at baud rate 115200 in DMA mode
+*  init_usart2_dma(eBaudRate115200); // initialise USART2 to work at baud rate 115200 in DMA mode
 *  return 0; 
 * }
 * @endcode
-* @param baudRate is the desired baud rate which may be selected using #eUSARTBaudRate enumeration
+* @param baudRate the desired baud rate which may be selected using #eUSARTBaudRate enumeration
 */
 void init_usart2_dma(eUSARTBaudRate baudRate);
 
@@ -67,13 +67,13 @@ void init_usart2_dma(eUSARTBaudRate baudRate);
 *
 * int main(void){
 *    ***any other initialization***
-*    init_usart(USARTx, eBaudRate9600); // initialize USART module to work at baud rate 9600
+*    init_usart(USARTx, eBaudRate9600); // initialise USART module to work at baud rate 9600
 *    usart_sendByte('F', USARTx); // send the byte to the receiver
 *    return 0;
 * }
 * @endcode 
 * @param byte the data to be sent via USART
-* @param USARTx the desired usart module used to send the byte (Be sure the USART module is initialized before using send functions).
+* @param USARTx the desired usart module used to send the byte (Be sure the USART module is initialised before using send functions).
 */
 void usart_sendByte(uint8_t byte, USART_TypeDef* USARTx);
 
@@ -82,8 +82,8 @@ void usart_sendByte(uint8_t byte, USART_TypeDef* USARTx);
 * @code{c}
 * void usart_send(uint8_t* data, uint32_t size, USART_TypeDef* USARTx);
 * @endcode
-* The function used to send the data of predetermined size via selected USART module.
-* (Be sure the the selected USART module is succesfully initialized before usage).
+* The function is used to send the data of predetermined size via selected USART module.
+* (Be sure the the selected USART module is succesfully initialised before usage).
 * Example usage:
 * @code{C}
 * #define USART USART1
@@ -91,7 +91,7 @@ void usart_sendByte(uint8_t byte, USART_TypeDef* USARTx);
 * 
 * int main() {
 *   *** any other initialization ***
-*   init_usart(USART, USART_BAUD_RATE); // initialize the selected USART module
+*   init_usart(USART, USART_BAUD_RATE); // initialise the selected USART module
 *   while (1) {}
 *   return 0;
 * }
@@ -123,7 +123,7 @@ void usart_send(uint8_t* data, uint32_t size, USART_TypeDef* USARTx);
 * @code{c}
 * void usart_sendString(const char* data, USART_TypeDef* USARTx);
 * @endcode
-* The function used to send strings.
+* The function is used to send strings.
 * May be used as simple alternative to printf to debug code.
 * Example code:
 * @code{c}
@@ -132,7 +132,7 @@ void usart_send(uint8_t* data, uint32_t size, USART_TypeDef* USARTx);
 * 
 * int main() {
 *   *** any other initialization ***
-*   init_usart(USART, USART_BAUD_RATE); // initialize the selected USART module
+*   init_usart(USART, USART_BAUD_RATE); // initialise the selected USART module
 *   while (1) {}
 *   return 0;
 * }
@@ -163,9 +163,10 @@ void usart_sendString(const char* data, USART_TypeDef* USARTx);
 * @code{c}
 * uint32_t strlen(const char* str);
 * @endcode
-* The function used to calculate the size of the string.
+* The function is used to calculate the size of the string.
+* @warning The string must be null-terminated
 * @param str string the size is to be calculate for
-* @return uint32_t the number of bytes in the string. UINT32_MAX if the string is too large
+* @return uint32_t the number of bytes in the string. UINT32_MAX if the string is too large or not null-terminated.
 */
 uint32_t strlen(const char* str);
 
@@ -174,7 +175,7 @@ uint32_t strlen(const char* str);
 * @code{c}
 * extern uint8_t isIDLE(USART_TypeDef* USARTx);
 * @endcode
-* The function used to determine quickly whether the IDLE flag is set or not
+* The function is used to determine quickly whether the IDLE flag is set or not
 
 * @code{c}
 * #define USART USART1
@@ -182,7 +183,7 @@ uint32_t strlen(const char* str);
 *  
 * int main() {
 *   *** any other initialization ***
-*   init_usart(USART, USART_BAUD_RATE); // initialize the selected USART module
+*   init_usart(USART, USART_BAUD_RATE); // initialise the selected USART module
 *   while (1) {}
 *   return 0;
 * }
@@ -208,14 +209,14 @@ extern uint8_t isIDLE(USART_TypeDef* USARTx);
 * @code{c}
 * extern uint8_t isRXNE(USART_TypeDef* USARTx);
 * @endcode
-* The function used to determine quickly whether the RXNE flag is set or not
+* The function is used to determine quickly whether the RXNE flag is set or not
 * @code{c}
 * #define USART USART1
 * #define USART_BAUD_RATE eBaudRate9600
 *  
 * int main() {
 *   *** any other initialization ***
-*   init_usart(USART, USART_BAUD_RATE); // initialize the selected USART module
+*   init_usart(USART, USART_BAUD_RATE); // initialise the selected USART module
 *   while (1) {}
 *   return 0;
 * }
@@ -241,7 +242,7 @@ extern uint8_t isRXNE(USART_TypeDef* USARTx);
 
 /**
 * usart.h
-* The function used to quickly enable RX Not Empty Interrupt
+* The function is is used to quickly enable RX Not Empty Interrupt
 * @code{c}
 * extern void usartxRXNEIEup(USART_TypeDef* USARTx);
 * @endcode
@@ -251,7 +252,7 @@ extern void usartxRXNEIEup(USART_TypeDef* USARTx);
 
 /**
 * usart.h
-* The function used to quickly disable RX Not Empty Interrupt
+* The function is used to quickly disable RX Not Empty Interrupt
 * @code{c}
 * extern void usartxRXNEIEdown(USART_TypeDef* USARTx);
 * @endcode
@@ -261,7 +262,7 @@ extern void usartxRXNEIEdown(USART_TypeDef* USARTx);
 
 /**
 * usart.h
-* The function used to quickly enable IDLE Interrupt
+* The function is used to quickly enable IDLE Interrupt
 * @code{c}
 * extern void usartxIDLEIEup(USART_TypeDef* USARTx);
 * @endcode
@@ -271,7 +272,7 @@ extern void usartxIDLEIEup(USART_TypeDef* USARTx);
 
 /**
 * usart.h
-* The function used to quickly disable IDLE Interrupt
+* The function is used to quickly disable IDLE Interrupt
 * @code{c}
 * extern void usartxIDLEIEdown(USART_TypeDef* USARTx);
 * @endcode
@@ -281,7 +282,7 @@ extern void usartxIDLEIEdown(USART_TypeDef* USARTx);
 
 /**
 * usart.h
-* The function used to quickly enable TX Empty Interrupt
+* The function is used to quickly enable TX Empty Interrupt
 * @code{c}
 * extern void usartxTXEIEup(USART_TypeDef* USARTx);
 * @endcode
@@ -291,7 +292,7 @@ extern void usartxTXEIEup(USART_TypeDef* USARTx);
 
 /**
 * usart.h
-* The function used to quickly disable TX Empty Interrupt
+* The function is used to quickly disable TX Empty Interrupt
 * @code{c}
 * extern void usartxTXEIEdown(USART_TypeDef* USARTx);
 * @endcode

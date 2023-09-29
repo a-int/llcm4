@@ -148,7 +148,7 @@ volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>delay_ms
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="llcm_8h.html">llcm.h</a> The enumeration used for quick selection of AHB divider </p><dl class="section warning"><dt>Warning</dt><dd>RCC_CFGR_HPRE_POS must be used to write proper value to register </dd></dl>
+<p><a class="el" href="llcm_8h.html">llcm.h</a> The enumeration is used for quick selection of AHB divider </p><dl class="section warning"><dt>Warning</dt><dd>RCC_CFGR_HPRE_POS must be used to write proper value to register </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a92455bca315f5d8b019242d213ac21dda78aa154dc684f32f1755ccd514502e5d" name="a92455bca315f5d8b019242d213ac21dda78aa154dc684f32f1755ccd514502e5d"></a>AHB_div1&#160;</td><td class="fielddoc"><p>AHB = 1. Writes 0b0000 to RCC-&gt;CFGR register to HPRE position. </p>
 </td></tr>
@@ -183,7 +183,7 @@ volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>delay_ms
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="llcm_8h.html">llcm.h</a> The enumeration used for quick selection of APB1/APB2 divider </p><dl class="section warning"><dt>Warning</dt><dd>RCC_CFGR_PREP1_POS or RCC_CFGR_PREP2_POS must be used to write proper value to register </dd></dl>
+<p><a class="el" href="llcm_8h.html">llcm.h</a> The enumeration is used for quick selection of APB1/APB2 divider </p><dl class="section warning"><dt>Warning</dt><dd>RCC_CFGR_PREP1_POS or RCC_CFGR_PREP2_POS must be used to write proper value to register </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a901b501ba97e9453bb99279ac0afd4d5add5269a04282c5b2bc92eed2760dad18" name="a901b501ba97e9453bb99279ac0afd4d5add5269a04282c5b2bc92eed2760dad18"></a>APB_div1&#160;</td><td class="fielddoc"><p>APB = 1. Used to write 0b000 to RCC-&gt;CFGR register to appropriate PREP position. </p>
 </td></tr>
@@ -210,7 +210,7 @@ volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>delay_ms
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="llcm_8h.html">llcm.h</a> The enumeration used for quick selection of PLL P argument </p><dl class="section warning"><dt>Warning</dt><dd>RCC_PLLPCFGR_PLLP_POS must be used to write proper value to register </dd></dl>
+<p><a class="el" href="llcm_8h.html">llcm.h</a> The enumeration is used for quick selection of PLL P argument </p><dl class="section warning"><dt>Warning</dt><dd>RCC_PLLPCFGR_PLLP_POS must be used to write proper value to register </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a6b9332677543d530c5cc6b71a90a6526aac407a1a342c7450df325ea8e5ae1ddd" name="a6b9332677543d530c5cc6b71a90a6526aac407a1a342c7450df325ea8e5ae1ddd"></a>pllp_div2&#160;</td><td class="fielddoc"><p>P = 2. Used to write 0b00 to RCC-&gt;PLLCFGR register to PLLP position. </p>
 </td></tr>
@@ -242,7 +242,7 @@ volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>delay_ms
 </div><div class="memdoc">
 <p><a class="el" href="llcm_8h.html">llcm.h</a> </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> <a class="code hl_function" href="llcm_8h.html#ac63485adc55888d6c962bcf0c4adc40a">delay_ms</a>(uint32_t time);</div>
 <div class="ttc" id="allcm_8h_html_ac63485adc55888d6c962bcf0c4adc40a"><div class="ttname"><a href="llcm_8h.html#ac63485adc55888d6c962bcf0c4adc40a">delay_ms</a></div><div class="ttdeci">void delay_ms(uint32_t time)</div><div class="ttdef"><b>Definition</b> llcm.c:57</div></div>
-</div><!-- fragment --><p> The function snippet used to create delay function working in milliseconds. </p><dl class="section warning"><dt>Warning</dt><dd>The SysTick must be initialized before usage. </dd></dl>
+</div><!-- fragment --><p> The function snippet used to create delay function working in milliseconds. </p><dl class="section warning"><dt>Warning</dt><dd>The SysTick must be initialised before usage. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">time</td><td>the number of milliseconds to wait for </td></tr>
@@ -306,7 +306,7 @@ volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>delay_ms
 <div class="ttc" id="allcm_8h_html_a901b501ba97e9453bb99279ac0afd4d5"><div class="ttname"><a href="llcm_8h.html#a901b501ba97e9453bb99279ac0afd4d5">APB_divider</a></div><div class="ttdeci">APB_divider</div><div class="ttdef"><b>Definition</b> llcm.h:26</div></div>
 <div class="ttc" id="allcm_8h_html_a92455bca315f5d8b019242d213ac21dd"><div class="ttname"><a href="llcm_8h.html#a92455bca315f5d8b019242d213ac21dd">AHB_divider</a></div><div class="ttdeci">AHB_divider</div><div class="ttdef"><b>Definition</b> llcm.h:39</div></div>
 <div class="ttc" id="allcm_8h_html_aa5f3ff1a20235d39da99798ed0ae3816"><div class="ttname"><a href="llcm_8h.html#aa5f3ff1a20235d39da99798ed0ae3816">init_clock_HSE</a></div><div class="ttdeci">void init_clock_HSE(uint32_t M_arg, uint32_t N_arg, ePLLP_arg P_arg, AHB_divider AHB, APB_divider APB1, APB_divider APB2)</div><div class="ttdef"><b>Definition</b> llcm.c:6</div></div>
-</div><!-- fragment --><p> The functions is used to set up SystemCoreClock speed. </p><dl class="section warning"><dt>Warning</dt><dd>M_arg must be between 2 and 63. M_arg equal to 0 or 1 is prohibited </dd>
+</div><!-- fragment --><p> The function is used to set up SystemCoreClock speed. </p><dl class="section warning"><dt>Warning</dt><dd>M_arg must be between 2 and 63. M_arg equal to 0 or 1 is prohibited </dd>
 <dd>
 N_arg must be between 2 and 510. M_arg equal to 0, 1, 433 or 511 is prohibited </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -315,8 +315,8 @@ N_arg must be between 2 and 510. M_arg equal to 0, 1, 433 or 511 is prohibited <
     <tr><td class="paramname">N_arg</td><td>the value for PLL N argument. 2nd argument of PLL that mupltyplies the HSE clock after M division. </td></tr>
     <tr><td class="paramname">P_arg</td><td>the value for PLL P argument. 3d argmunet of of PLL that divides the value of HSE clock after N multiplication. <a class="el" href="llcm_8h.html#a6b9332677543d530c5cc6b71a90a6526">ePLLP_arg</a> may be used to quickly select divider </td></tr>
     <tr><td class="paramname">AHB</td><td>the value for AHB bus division that is used to specify clock speed on all peripherals buses. <a class="el" href="llcm_8h.html#a92455bca315f5d8b019242d213ac21dd">AHB_divider</a> may be used to quickly select divider </td></tr>
-    <tr><td class="paramname">APB1</td><td>the value specifies the bus clock speed for APB1 bus. <a class="el" href="llcm_8h.html#a901b501ba97e9453bb99279ac0afd4d5">APB_divider</a> may be used to quickly select divider </td></tr>
-    <tr><td class="paramname">APB2</td><td>the value speicifies the bus clock speed for APB2 bus <a class="el" href="llcm_8h.html#a901b501ba97e9453bb99279ac0afd4d5">APB_divider</a> may be used to quickly select divider </td></tr>
+    <tr><td class="paramname">APB1</td><td>the value specifies the bus clock speed division for APB1 bus. <a class="el" href="llcm_8h.html#a901b501ba97e9453bb99279ac0afd4d5">APB_divider</a> may be used to quickly select divider </td></tr>
+    <tr><td class="paramname">APB2</td><td>the value speicifies the bus clock speed division for APB2 bus <a class="el" href="llcm_8h.html#a901b501ba97e9453bb99279ac0afd4d5">APB_divider</a> may be used to quickly select divider </td></tr>
   </table>
   </dd>
 </dl>
@@ -340,9 +340,9 @@ N_arg must be between 2 and 510. M_arg equal to 0, 1, 433 or 511 is prohibited <
 </div><div class="memdoc">
 <p><a class="el" href="llcm_8h.html">llcm.h</a> </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> <a class="code hl_function" href="llcm_8h.html#a9dfc45e12945d5475f98a15f7d7df64c">init_SysTick</a>(uint32_t ticks)</div>
 <div class="ttc" id="allcm_8h_html_a9dfc45e12945d5475f98a15f7d7df64c"><div class="ttname"><a href="llcm_8h.html#a9dfc45e12945d5475f98a15f7d7df64c">init_SysTick</a></div><div class="ttdeci">void init_SysTick(uint32_t ticks)</div><div class="ttdef"><b>Definition</b> llcm.c:38</div></div>
-</div><!-- fragment --><p> The function is used to initialize SysTick. Example usage: </p><div class="fragment"><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>){</div>
-<div class="line"> <a class="code hl_function" href="llcm_8h.html#aa5f3ff1a20235d39da99798ed0ae3816">init_clock_HSE</a>(25, 200, <a class="code hl_enumvalue" href="llcm_8h.html#a6b9332677543d530c5cc6b71a90a6526aac407a1a342c7450df325ea8e5ae1ddd">pllp_div2</a>, <a class="code hl_enumvalue" href="llcm_8h.html#a92455bca315f5d8b019242d213ac21dda78aa154dc684f32f1755ccd514502e5d">AHB_div1</a>, <a class="code hl_enumvalue" href="llcm_8h.html#a901b501ba97e9453bb99279ac0afd4d5a463a26a30c5d94a0f9050bd4399b9b2f">APB_div2</a>, <a class="code hl_enumvalue" href="llcm_8h.html#a901b501ba97e9453bb99279ac0afd4d5add5269a04282c5b2bc92eed2760dad18">APB_div1</a>); <span class="comment">// initialize clock to work at 100 MHz (HSE = 25 MHz)</span></div>
-<div class="line"> <a class="code hl_function" href="llcm_8h.html#a9dfc45e12945d5475f98a15f7d7df64c">init_SysTick</a>(1000); <span class="comment">// initialize SysTick to work in milliseconds</span></div>
+</div><!-- fragment --><p> The function is used to initialise SysTick. Example usage: </p><div class="fragment"><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>){</div>
+<div class="line"> <a class="code hl_function" href="llcm_8h.html#aa5f3ff1a20235d39da99798ed0ae3816">init_clock_HSE</a>(25, 200, <a class="code hl_enumvalue" href="llcm_8h.html#a6b9332677543d530c5cc6b71a90a6526aac407a1a342c7450df325ea8e5ae1ddd">pllp_div2</a>, <a class="code hl_enumvalue" href="llcm_8h.html#a92455bca315f5d8b019242d213ac21dda78aa154dc684f32f1755ccd514502e5d">AHB_div1</a>, <a class="code hl_enumvalue" href="llcm_8h.html#a901b501ba97e9453bb99279ac0afd4d5a463a26a30c5d94a0f9050bd4399b9b2f">APB_div2</a>, <a class="code hl_enumvalue" href="llcm_8h.html#a901b501ba97e9453bb99279ac0afd4d5add5269a04282c5b2bc92eed2760dad18">APB_div1</a>); <span class="comment">// initialise clock to work at 100 MHz (HSE = 25 MHz)</span></div>
+<div class="line"> <a class="code hl_function" href="llcm_8h.html#a9dfc45e12945d5475f98a15f7d7df64c">init_SysTick</a>(1000); <span class="comment">// initialise SysTick to work in milliseconds</span></div>
 <div class="line"> <span class="keywordflow">while</span>(1){}</div>
 <div class="line"> <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
@@ -376,7 +376,7 @@ N_arg must be between 2 and 510. M_arg equal to 0, 1, 433 or 511 is prohibited <
 </div><div class="memdoc">
 <p><a class="el" href="llcm_8h.html">llcm.h</a> </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> <a class="code hl_function" href="llcm_8h.html#a5c5e3043081b9332e6dfa8a9d0d0c7cc">initSW</a>(<span class="keywordtype">void</span>);</div>
 <div class="ttc" id="allcm_8h_html_a5c5e3043081b9332e6dfa8a9d0d0c7cc"><div class="ttname"><a href="llcm_8h.html#a5c5e3043081b9332e6dfa8a9d0d0c7cc">initSW</a></div><div class="ttdeci">void initSW(void)</div><div class="ttdef"><b>Definition</b> llcm.c:45</div></div>
-</div><!-- fragment --><p> The function used for quick pins setup to select Serial Wire debug. Sets PA15(JTDI), PB3(JTDO), PB4(NJRST) as analog to minimize power consuption unless it is used </p>
+</div><!-- fragment --><p> The function is used for quick pins setup to select Serial Wire debug. Sets PA15(JTDI), PB3(JTDO), PB4(NJRST) as analog to minimize power consuption unless it is used </p>
 
 </div>
 </div>
