@@ -19,5 +19,5 @@ typedef enum { spiMaster, spiSlave } SPI_MODE;
 typedef enum { spiMsbfirst, spiLsbfirst } SPI_SBFIRST;
 typedef enum { spiHardwareSlaveManagement, spiSoftwareSlaveManagement } SPI_SSM;
 
-void init_spi1_gpio(uint8_t isMisoUsed, uint8_t isNssUsed);
+void init_spi1_gpio(uint8_t isMOSIUsed, uint8_t isMISOUsed, uint8_t isNSSUsed);
 void init_spi1_fullDuplex(SPI_CPOL cpol, SPI_CPHA cpha, SPI_BR baudRate, SPI_MODE mode, SPI_SBFIRST sbFirst, SPI_DFF dff, SPI_SSM ssm);
