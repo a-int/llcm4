@@ -50,3 +50,15 @@ target_link_options(flash PRIVATE
     ${common_flags}
     ${link_flags}
 )
+
+add_library( spi OBJECT 
+	spi.c
+)
+
+target_include_directories(spi PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/vendor/)
+target_include_directories(spi PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/llcm/)
+target_link_options(spi PRIVATE 
+    ${arch_flags} 
+    ${common_flags}
+    ${link_flags}
+)

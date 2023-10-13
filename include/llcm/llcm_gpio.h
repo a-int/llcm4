@@ -1,0 +1,3 @@
+#pragma once
+
+typedef enum{AF0, AF1, AF2, AF3, AF4, AF5, AF6, AF7, AF8, AF9, AF10, AF11, AF12, AF13, AF14, AF15} GPIO_AFSEL;

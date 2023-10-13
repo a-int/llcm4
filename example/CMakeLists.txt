@@ -83,3 +83,21 @@ target_link_libraries(dma.elf
 	llcm
 	usart
 )
+
+add_executable(spi.elf 
+	spi.c
+)
+target_include_directories(spi.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/vendor/)
+target_include_directories(spi.elf PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include/llcm/)
+target_link_options(spi.elf PRIVATE 
+    ${arch_flags} 
+    ${common_flags}
+    ${link_flags}
+)
+
+target_link_libraries(spi.elf
+	llcm_core
+	llcm
+	usart
+	spi
+)
