@@ -28,9 +28,8 @@ void init_clock_HSE(uint32_t M_arg, uint32_t N_arg, ePLLP_arg P_arg, AHB_divider
     ;
 
   SET_BIT(RCC->CFGR, RCC_CFGR_SW_PLL);  // select PLL in SW
-  while ((READ_BIT(RCC->CFGR, RCC_CFGR_SWS_PLL)) == RESET)
-    ;
-
+  while ((READ_BIT(RCC->CFGR, RCC_CFGR_SWS_PLL)) == RESET){}
+  
   SystemCoreClockUpdate();  //update global variable for system clock
 }
 
